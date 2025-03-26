@@ -46,7 +46,7 @@ const pushWxPusher = (title, desp) => {
   superagent
     .post("https://wxpusher.zjiecode.com/api/send/message")
     .send(data)
-    .timeout(3000)
+    .timeout(10000)
     .end((err, res) => {
       if (err) {
         logger.error(`wxPusher推送失败:${JSON.stringify(err)}`);

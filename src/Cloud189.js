@@ -150,11 +150,11 @@ const main = async () => {
         const { familyCapacityInfo } = await cloudClient.getUserSizeInfo();
 
         logger.log(
-          `${firstSpace}实际：个人容量+ ${
+          `${firstSpace}实际：个人+ ${
             (cloudCapacityInfo2.totalSize - cloudCapacityInfo0.totalSize) /
             1024 /
             1024
-          }M, 家庭容量+ ${
+          }M, 家庭+ ${
             (familyCapacityInfo.totalSize - familyCapacitySize2) / 1024 / 1024
           }M`
         );
@@ -214,6 +214,6 @@ const main = async () => {
     logger.log("\n\n");
     const events = recording.replay();
     const content = events.map((e) => `${e.data.join("")}`).join("  \n");
-    push("天翼云盘自动签到任务", content);
+    push("天翼云盘签到", content);
   }
 })();

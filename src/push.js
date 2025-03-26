@@ -58,6 +58,12 @@ const pushWxPusher = (title, desp) => {
         return;
       }
       const json = JSON.parse(res.text);
+      // 检查 json.data 是否存在且为非空数组
+      if (!json.data || !Array.isArray(json.data) || json.data.length === 0) {
+        logger.error(`wxPusher推送失败: 返回数据为空或无效`);
+        return;
+      }
+      // 检查 code 是否为 1000
       if (json.data[0].code !== 1000) {
         logger.error(`wxPusher推送失败:${JSON.stringify(json)}`);
       } else {

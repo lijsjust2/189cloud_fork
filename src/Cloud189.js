@@ -213,7 +213,7 @@ const main = async () => {
   } finally {
     logger.log("\n\n");
     const events = recording.replay();
-    const content = events.map((e) => `${e.data.join("")}`).join("  \n");
+    let content = events.map((e) => `${e.data.join("")}`).join("  \n");
     // 提取最后一个主账号汇总块
     const summaryBlock = content.match(/主账号.*家庭容量\+ \d+M[\s\S]*?个人总容量：\d+\.\d{2}G, 家庭总容量：\d+\.\d{2}G/);
     if (summaryBlock) {

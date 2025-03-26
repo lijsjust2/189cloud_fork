@@ -159,12 +159,12 @@ const main = async () => {
           }M`
         );
         logger.log(
-          `${firstSpace}个人总容量：${(
+          `${firstSpace}个人总：${(
             cloudCapacityInfo2.totalSize /
             1024 /
             1024 /
             1024
-          ).toFixed(2)}G, 家庭总容量：${(
+          ).toFixed(2)}G, 家庭总：${(
             familyCapacityInfo2.totalSize /
             1024 /
             1024 /
@@ -182,7 +182,7 @@ const main = async () => {
     userNameInfo = mask(firstUserName, 3, 7);
     const capacityChange = familyCapacitySize2 - familyCapacitySize;
     logger.log(
-      `主账号${userNameInfo} 家庭容量+ ${capacityChange / 1024 / 1024}M`
+      `主号${userNameInfo} 家庭+ ${capacityChange / 1024 / 1024}M`
     );
 
     cloudClient = cloudClientMap.get(firstUserName);
@@ -191,12 +191,12 @@ const main = async () => {
       familyCapacityInfo: familyCapacityInfo2,
     } = await cloudClient.getUserSizeInfo();
     logger.log(
-      `个人总容量：${(
+      `个人：${(
         cloudCapacityInfo2.totalSize /
         1024 /
         1024 /
         1024
-      ).toFixed(2)}G, 家庭总容量：${(
+      ).toFixed(2)}G, 家庭：${(
         familyCapacityInfo2.totalSize /
         1024 /
         1024 /
@@ -213,12 +213,7 @@ const main = async () => {
   } finally {
     logger.log("\n\n");
     const events = recording.replay();
-    let content = events.map((e) => `${e.data.join("")}`).join("  \n");
-    // 提取最后一个主账号汇总块
-    const summaryBlock = content.match(/主账号.*家庭容量\+ \d+M[\s\S]*?个人总容量：\d+\.\d{2}G, 家庭总容量：\d+\.\d{2}G/);
-    if (summaryBlock) {
-      content = `${summaryBlock[0]}  \n\n${content}`; // 插入到最前面
-    }
-    push("天翼签到", content);
+    const content = events.map((e) => `${e.data.join("")}`).join("  \n");
+    push("天翼云盘自动签到任务", content);
   }
 })();

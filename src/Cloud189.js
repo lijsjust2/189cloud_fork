@@ -1,3 +1,4 @@
+
 require("dotenv").config();
 const recording = require("log4js/lib/appenders/recording");
 const { CloudClient, FileTokenStore } = require("../sdk/index");
@@ -150,21 +151,21 @@ const main = async () => {
         const { familyCapacityInfo } = await cloudClient.getUserSizeInfo();
 
         logger.log(
-          `${firstSpace}实际：个人容量+ ${
+          `${firstSpace}实际：个人+ ${
             (cloudCapacityInfo2.totalSize - cloudCapacityInfo0.totalSize) /
             1024 /
             1024
-          }M, 家庭容量+ ${
+          }M, 家庭+ ${
             (familyCapacityInfo.totalSize - familyCapacitySize2) / 1024 / 1024
           }M`
         );
         logger.log(
-          `${firstSpace}个人总容量：${(
+          `${firstSpace}个人：${(
             cloudCapacityInfo2.totalSize /
             1024 /
             1024 /
             1024
-          ).toFixed(2)}G, 家庭总容量：${(
+          ).toFixed(2)}G, 家庭：${(
             familyCapacityInfo2.totalSize /
             1024 /
             1024 /
@@ -191,12 +192,12 @@ const main = async () => {
       familyCapacityInfo: familyCapacityInfo2,
     } = await cloudClient.getUserSizeInfo();
     logger.log(
-      `个人总容量：${(
+      `个人：${(
         cloudCapacityInfo2.totalSize /
         1024 /
         1024 /
         1024
-      ).toFixed(2)}G, 家庭总容量：${(
+      ).toFixed(2)}G, 家庭：${(
         familyCapacityInfo2.totalSize /
         1024 /
         1024 /
@@ -216,7 +217,7 @@ const main = async () => {
     let content = events.map((e) => `${e.data.join("")}`).join("  \n");
     
     // 提取最后一个主账号汇总块
-    const summaryBlock = content.match(/主账号.*家庭容量\+ \d+M[\s\S]*?个人总容量：\d+\.\d{2}G, 家庭总容量：\d+\.\d{2}G/);   
+    const summaryBlock = content.match(/主账号.*家庭容量\+ \d+M[\s\S]*?个人：\d+\.\d{2}G, 家庭：\d+\.\d{2}G/);   
     if (summaryBlock) {
      content = `${summaryBlock[0]}  \n\n${content}`; // 插入到最前面
    }

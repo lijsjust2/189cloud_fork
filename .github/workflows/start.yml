@@ -2,7 +2,7 @@ name: Action
 
 on:
   schedule:
-    - cron: 20 18 1 1 *
+    - cron: 20 18 * * *
   workflow_dispatch:
 
 jobs:
@@ -50,4 +50,4 @@ jobs:
           token: ${{ github.token }}
           repository: ${{ github.repository }}
           retain_days: 0
-          keep_minimum_runs: 10
+          keep_minimum_runs: 5
